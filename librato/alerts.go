@@ -23,6 +23,7 @@ type Alert struct {
 	Description  *string          `json:"description,omitempty"`
 	Active       *bool            `json:"active,omitempty"`
 	RearmSeconds *uint            `json:"rearm_seconds,omitempty"`
+	Md           *bool            `json:"md,omitempty"`
 }
 
 func (a Alert) String() string {
@@ -31,13 +32,20 @@ func (a Alert) String() string {
 
 // AlertCondition represents an alert trigger condition.
 type AlertCondition struct {
-	Type            *string  `json:"type,omitempty"`
-	MetricName      *string  `json:"metric_name,omitempty"`
-	Source          *string  `json:"source,omitempty"`
-	DetectReset     *bool    `json:"detect_reset,omitempty"`
-	Threshold       *float64 `json:"threshold,omitempty"`
-	SummaryFunction *string  `json:"summary_function,omitempty"`
-	Duration        *uint    `json:"duration,omitempty"`
+	Type            *string                `json:"type,omitempty"`
+	MetricName      *string                `json:"metric_name,omitempty"`
+	Source          *string                `json:"source,omitempty"`
+	Tags            []AlertConditionTagSet `json:"tags,omitempty"`
+	DetectReset     *bool                  `json:"detect_reset,omitempty"`
+	Threshold       *float64               `json:"threshold,omitempty"`
+	SummaryFunction *string                `json:"summary_function,omitempty"`
+	Duration        *uint                  `json:"duration,omitempty"`
+}
+
+type AlertConditionTagSet struct {
+	Name    *string     `json:"name,omitempty"`
+	Grouped *bool       `json:"grouped,omitempty"`
+	Values  interface{} `json:"values,omitempty"`
 }
 
 // AlertAttributes represents the attributes of an alert.
